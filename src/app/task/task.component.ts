@@ -47,7 +47,7 @@ export class TaskComponent implements OnInit {
   getTodos(query = '') {
     return this.taskSevice.get(query).then(todos => {
       this.todos = todos;
-      this.activeTasks = this.todos.filter(todos => !todos.isDone).lenght;
+      this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
     });
   }
 
