@@ -1,33 +1,21 @@
 import { Injectable } from '@angular/core';
+import { resolve } from 'q';
 // import { resolve } from 'q';
-// import { promise } from 'protractor';
+// import { resolve } from 'dns';
 
 let TODOS = [
-  { title: 'test-1', isDone: true },
-  { title: 'test-2', isDone: true },
-  { title: 'test-3', isDone: false },
-  { title: 'test-4', isDone: false }
+  // { title: 'This is a test', isDone: true },
+  // { title: 'This is a test', isDone: true },
+  // { title: 'This is a test', isDone: false },
+  // { title: 'This is a test', isDone: false }
 ];
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoService {
-
+export class TaskService {
 
   constructor() { }
-  get(query = '') {
-    return new Promise(resolve => {
-      let data;
-      if(query === 'completed' || query === 'active') {
-        const isCompleted = query === 'completed';
-        data = TODOS.filter(todo => todo.isDone === isCompleted);
-      } else {
-        data = TODOS;
-      }
-    resolve(data)
-    });
-  }
 
   add(data) {
     return new Promise(resolve => {
@@ -57,10 +45,26 @@ export class TodoService {
       TODOS = TODOS.filter(todo => !todo.isDone);
       resolve(TODOS);
     });
-  }  
+  }
 
   toggle(selected) {
     selected.isDone = !selected.isDone;
-    return  Promise.resolve();
+    return Promise.resolve();
   }
-}
+
+  get(query = '') {
+    return new Promise(resolve => {
+      let data;
+  
+      if (query === 'completed' || query === 'active'){
+        const isCompleted = query === 'completed';
+        data = TODOS.filter(todo => todo.isDone === isCompleted);
+      } else {
+        data = TODOS;
+      }
+  
+      resolve(data);
+    });
+  }
+  
+}  

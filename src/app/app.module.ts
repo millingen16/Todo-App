@@ -1,25 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TodoComponent } from './todo/todo.component';
+import { TaskComponent } from './task/task.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule }   from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
-
-const routes: Routes = [ { path: 'status', component: TodoComponent }, { path: '**', redirectTo: '/'}];
+const routes: Routes = [
+  { path: ':status', component: TaskComponent },
+  { path: '**', redirectTo: '/all' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoComponent
+    TaskComponent
   ],
   imports: [
-    BrowserModule,
     FormsModule,
+    AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    BrowserModule,
+    [RouterModule.forRoot(
+      routes
+    )]
   ],
   providers: [],
   bootstrap: [AppComponent]
